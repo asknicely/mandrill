@@ -18,11 +18,27 @@ require_once 'Mandrill/Metadata.php';
 require_once 'Mandrill/Exceptions.php';
 
 class Mandrill {
-    
+
     public $apikey;
     public $ch;
     public $root = 'https://mandrillapp.com/api/1.0';
     public $debug = false;
+
+    public $templates;
+    public $exports;
+    public $users;
+    public $rejects;
+    public $inbound;
+    public $tags;
+    public $messages;
+    public $whitelists;
+    public $ips;
+    public $internal;
+    public $subaccounts;
+    public $urls;
+    public $webhooks;
+    public $senders;
+    public $metadata;
 
     public static $error_map = array(
         "ValidationError" => "Mandrill_ValidationError",
@@ -127,7 +143,7 @@ class Mandrill {
         }
         $result = json_decode($response_body, true);
         if($result === null) throw new Mandrill_Error('We were unable to decode the JSON response from the Mandrill API: ' . $response_body);
-        
+
         if(floor($info['http_code'] / 100) >= 4) {
             throw $this->castError($result);
         }
