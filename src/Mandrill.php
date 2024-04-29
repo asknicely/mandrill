@@ -107,7 +107,9 @@ class Mandrill {
     }
 
     public function __destruct() {
-        curl_close($this->ch);
+        if ($this->ch) {
+            curl_close($this->ch);
+        }
     }
 
     public function call($url, $params) {
